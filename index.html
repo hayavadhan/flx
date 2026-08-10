@@ -902,13 +902,22 @@
   .ov-feat-flag{position:absolute;top:12px;left:12px;background:rgba(15,22,41,.82);color:#fff;font-size:11px;font-weight:700;padding:5px 10px;border-radius:20px;display:none;align-items:center;gap:6px}
   .ov-feat-flag.on{display:inline-flex}
   .ov-feat-flag svg{width:12px;height:12px;fill:currentColor;stroke:none}
+  /* Edit Project: "Edit Project" becomes a small eyebrow; project name + breadcrumb sit below it in the topbar */
+  .ep-topbar-proj{margin-top:8px}
+  .ep-topbar-proj .ep-h1{font-size:23px;font-weight:800;letter-spacing:-.4px;color:var(--ink)}
+  .ep-topbar-proj .pedit-crumb{margin-top:5px}
+  .topbar.ep-mode #pageTitle{font-size:13px;font-weight:600;color:var(--muted-2);letter-spacing:0}
+  .topbar.ep-mode .page-ic{width:24px;height:24px;border-radius:7px}
+  .topbar.ep-mode .page-ic svg{width:14px;height:14px}
+  .topbar.ep-mode .page-title-row{gap:8px}
+
   .ov-info{padding:26px 28px;display:flex;flex-direction:column}
   .ov-name{font-size:20px;font-weight:800;letter-spacing:-.3px}
   .ov-badges{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:12px}
   .ov-badge{font-size:12px;font-weight:700;color:var(--green);background:var(--green-soft);border:1px solid #c7ebd2;border-radius:8px;padding:5px 11px}
   .ov-badges .ppill{border-radius:8px}
   .ov-badge.alt{color:var(--muted-2);background:#eef0f2;border-color:var(--line)}
-  .ov-urlbar{display:flex;align-items:center;gap:10px;background:#f6f7f9;border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-top:20px}
+  .ov-urlbar{display:flex;align-items:center;gap:10px;background:#f6f7f9;border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-top:0}
   .ov-url{flex:1;min-width:0;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;color:var(--muted-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .ov-iconbtn{width:30px;height:30px;border:none;background:none;border-radius:7px;color:var(--muted-2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,color .15s;flex-shrink:0}
   .ov-iconbtn:hover{background:#eceef1;color:var(--ink)}
@@ -1416,6 +1425,12 @@
         <h1 id="pageTitle">Dashboard</h1>
       </div>
       <div class="page-sub" id="pageSub" hidden><span id="pageSubLabel">TOTAL PRODUCTS</span> <b id="prodCount">3</b></div>
+      <div class="ep-topbar-proj" id="epTopbarProj" hidden>
+        <h1 class="ep-h1" id="prjEditTitle">Project Name</h1>
+        <nav class="pedit-crumb" aria-label="Breadcrumb">
+          <a href="#" id="prjCrumbHome">Projects</a><span class="sep">/</span><span id="prjCrumbName" aria-current="page">Project</span>
+        </nav>
+      </div>
     </div>
     <div class="promo">
       <div class="promo-text">Watch your AI team deliver 3.7X ROI without a marketing team</div>
@@ -2029,10 +2044,8 @@
       <main class="ep-main">
         <div class="ep-main-head">
           <div class="ep-main-head-l">
-            <h1 class="ep-h1" id="prjEditTitle">Project Name</h1>
-            <nav class="pedit-crumb" aria-label="Breadcrumb">
-              <a href="#" id="prjCrumbHome">Projects</a><span class="sep">/</span><span id="prjCrumbName" aria-current="page">Project</span>
-            </nav>
+            <h1 class="ep-h1" id="ovPageName">Page Name</h1>
+            <div class="ov-badges" id="ovPageBadges"></div>
           </div>
           <div class="ep-main-head-r">
             <button class="ubtn ghost" id="prjSettingsBtn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-2.9 1.2V21a2 2 0 1 1-4 0v-.1A1.7 1.7 0 0 0 9 19.4a1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0-1.2-2.9H3a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 2.9-1.2V3a2 2 0 1 1 4 0v.1A1.7 1.7 0 0 0 15 4.6a1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-1.2 2.9H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Project settings</button>
@@ -2796,6 +2809,12 @@
     if(!p){ prjOvCard.innerHTML = `<div style="grid-column:1/-1;padding:40px;text-align:center;color:var(--muted-2)">No pages yet — add one to get started.</div>`; return; }
     const isDefault = pages[0] && p.id === pages[0].id;
     const fullUrl = "https://" + p.url;
+    // page name + type/status/default badges now live in the main content header
+    document.getElementById("ovPageName").textContent = p.name;
+    document.getElementById("ovPageBadges").innerHTML =
+      `<span class="ov-badge alt">${fnEsc(p.type)}</span>` +
+      `<span class="ppill ${p.status}"><span class="dot"></span>${p.status}</span>` +
+      (isDefault ? `<span class="ov-badge">Default Page</span>` : "");
     prjOvCard.innerHTML = `
       <div class="ov-thumb">
         <img src="${p.thumb}" alt="${fnEsc(p.name)} preview" loading="lazy">
@@ -2805,12 +2824,6 @@
         </div>
       </div>
       <div class="ov-info">
-        <div class="ov-name">${fnEsc(p.name)}</div>
-        <div class="ov-badges">
-          <span class="ov-badge alt">${fnEsc(p.type)}</span>
-          <span class="ppill ${p.status}"><span class="dot"></span>${p.status}</span>
-          ${isDefault ? `<span class="ov-badge">Default Page</span>` : ""}
-        </div>
         <div class="ov-urlbar">
           <span class="ov-url">${fnEsc(fullUrl)}</span>
           <button class="ov-iconbtn" data-copy="${fnEsc(fullUrl)}" data-kind="Page URL" title="Copy URL"><svg viewBox="0 0 24 24">${ICONS.dup}</svg></button>
@@ -2874,6 +2887,8 @@
     const nl = document.querySelector('.nav a[data-page="projects"]'); if(nl) nl.classList.add("active");
     document.getElementById("prjEditTitle").textContent = p.title;
     document.getElementById("prjCrumbName").textContent = p.title;
+    document.getElementById("epTopbarProj").hidden = false;
+    document.querySelector(".topbar").classList.add("ep-mode");
     prjPageSearch.value = ""; document.getElementById("repSearch").value = "";
     document.querySelectorAll(".rep-tab").forEach(t => t.classList.toggle("active", t.dataset.rtab==="reports"));
     renderPrjPageList(); renderPrjOverview(); renderRepTable();
@@ -3373,6 +3388,8 @@
     editingFunnelId = id;
     document.querySelectorAll(".page").forEach(p => p.hidden = true);
     document.getElementById("page-funnel-edit").hidden = false;
+    document.getElementById("epTopbarProj").hidden = true;
+    document.querySelector(".topbar").classList.remove("ep-mode");
     setPageTitle("funnelEdit", "Funnel Editor");
     document.getElementById("pageSub").hidden = true;
     document.querySelectorAll(".nav a").forEach(a => a.classList.remove("active"));
@@ -3844,6 +3861,8 @@
       link.classList.add("active");
       document.querySelectorAll(".page").forEach(p=>p.hidden = true);
       document.getElementById("page-"+page).hidden = false;
+      document.getElementById("epTopbarProj").hidden = true;
+      document.querySelector(".topbar").classList.remove("ep-mode");
       setPageTitle(page);
       updatePageSub(page);
       window.scrollTo({top:0, behavior:"smooth"});
