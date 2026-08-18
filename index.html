@@ -1264,6 +1264,50 @@
   .btn-ghost:hover{border-color:#c9cfd8;background:#fafbfc}
   .btn-primary{background:var(--green);border:none;border-radius:9px;padding:10px 20px;font-size:14px;font-weight:600;color:#fff;cursor:pointer;font-family:inherit;transition:background .15s}
   .btn-primary:hover{background:#15803d}
+  /* Page Settings modal fields */
+  .field-hint{font-size:12px;color:var(--muted-2);margin-top:6px}
+  .url-field{display:flex;align-items:stretch;border:1px solid var(--line);border-radius:9px;overflow:hidden;transition:border-color .15s,box-shadow .15s}
+  .url-field:focus-within{border-color:var(--green);box-shadow:0 0 0 3px var(--green-soft)}
+  .url-prefix{display:flex;align-items:center;padding:10px 12px;background:#f6f7f9;color:var(--muted-2);font-size:13px;
+    font-family:ui-monospace,Menlo,monospace;white-space:nowrap;border-right:1px solid var(--line);user-select:none;max-width:60%;overflow:hidden;text-overflow:ellipsis}
+  input.url-slug{border:none!important;border-radius:0!important;flex:1;min-width:0;font-family:ui-monospace,Menlo,monospace}
+  input.url-slug:focus{box-shadow:none!important}
+  .type-row{display:flex;gap:10px;align-items:center}
+  .type-row select{flex:1}
+  .link-reset{display:inline-flex;align-items:center;gap:6px;background:none;border:none;color:var(--green);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;padding:8px 4px;white-space:nowrap}
+  .link-reset:hover{text-decoration:underline}
+  .link-reset svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .pw-row{display:flex;gap:8px}
+  .pw-row input{flex:1;border:1px solid var(--line);border-radius:9px;padding:10px 13px;font-size:14px;font-family:inherit;color:var(--ink);background:#fff;transition:border-color .15s}
+  .pw-row input:focus{outline:none;border-color:var(--green)}
+  .pw-toggle{background:#fff;border:1px solid var(--line);border-radius:9px;padding:0 14px;font-family:inherit;font-size:13px;font-weight:600;color:var(--ink-2);cursor:pointer;transition:border-color .15s,color .15s}
+  .pw-toggle:hover{border-color:var(--green);color:var(--green)}
+  /* Lock this page — self-contained so global .field label rules can't break the layout */
+  .pgs-lock{margin-top:2px}
+  .pgs-toggle{display:flex;align-items:center;justify-content:space-between;gap:16px;border:1px solid var(--line);border-radius:10px;padding:14px 16px;cursor:pointer}
+  .pgs-toggle-txt{display:flex;flex-direction:column;gap:2px}
+  .pgs-toggle-txt b{font-size:13.5px;font-weight:700;color:var(--ink)}
+  .pgs-toggle-txt small{font-size:12px;color:var(--muted-2)}
+  .pgs-pw-field{margin-top:12px}
+  .pgs-pw-label{display:block;font-size:13px;font-weight:600;color:var(--ink-2);margin-bottom:6px}
+  /* Opt-in conversion-event choices */
+  .pgs-optin{margin-top:14px}
+  .pgs-optin-head{font-size:14px;font-weight:700;color:var(--ink)}
+  .pgs-optin-sub{font-size:12.5px;color:var(--muted-2);margin:3px 0 12px;line-height:1.5}
+  .pgs-optin .pgs-evt{display:flex;align-items:flex-start;gap:12px;border:1px solid var(--line);border-radius:11px;
+    padding:14px 16px;cursor:pointer;margin:0 0 10px;transition:border-color .15s,background .15s}
+  .pgs-optin .pgs-evt:hover{border-color:#cfd5dd}
+  .pgs-evt input{position:absolute;opacity:0;width:0;height:0}
+  .pgs-evt.on{border-color:var(--green);background:var(--green-soft)}
+  .pgs-radio-dot{display:block;width:18px;height:18px;border-radius:50%;border:2px solid #c4ccd6;flex-shrink:0;margin-top:1px;position:relative;transition:border-color .15s}
+  .pgs-evt input:checked ~ .pgs-radio-dot{border-color:var(--green)}
+  .pgs-evt input:checked ~ .pgs-radio-dot::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--green)}
+  .pgs-evt-txt{display:flex;flex-direction:column;gap:3px}
+  .pgs-evt-txt b{font-size:14px;font-weight:700;color:var(--ink)}
+  .pgs-evt-txt small{font-size:12.5px;color:var(--muted-2);line-height:1.5}
+  .pgs-note{display:flex;gap:10px;background:#eef4fb;border:1px solid #d6e6f5;border-radius:10px;padding:12px 14px;margin-top:2px}
+  .pgs-note svg{width:16px;height:16px;flex-shrink:0;margin-top:1px;fill:none;stroke:#2f80ed;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .pgs-note span{font-size:12.5px;color:#1d5a8f;line-height:1.5}
 
   /* ════ Product setup stepper modal ════ */
   .pm-backdrop{position:fixed;inset:0;background:rgba(17,24,39,.5);z-index:200;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .18s ease}
@@ -2293,6 +2337,85 @@
   </div>
 </div>
 
+<!-- ═══════════ PAGE SETTINGS MODAL ═══════════ -->
+<div class="modal-backdrop" id="pageSettingsBackdrop">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="pgsTitle">
+    <div class="modal-head">
+      <div class="modal-head-l">
+        <span class="m-ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5"/></svg></span>
+        <div class="modal-titles"><h3 id="pgsTitle">Page settings</h3><p id="pgsSub">Change your page's name, link, type and password.</p></div>
+      </div>
+      <button class="modal-close" id="pgsClose" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <div class="field"><label>Page name</label><input id="pgsName" placeholder="e.g. Sales Page"></div>
+
+      <div class="field"><label>Page link</label>
+        <div class="url-field">
+          <span class="url-prefix" id="pgsUrlPrefix">https://…/</span>
+          <input id="pgsSlug" class="url-slug" placeholder="offer" spellcheck="false">
+        </div>
+        <div class="field-hint">You can only change the part after the slash.</div>
+      </div>
+
+      <div class="field"><label>What kind of page is this?</label>
+        <div class="type-row">
+          <select id="pgsType">
+            <option value="Custom Page">Custom</option>
+            <option value="Sales Page">Sales</option>
+            <option value="Opt-in Page">Optin</option>
+            <option value="Checkout Page">Checkout</option>
+            <option value="Thank You Page">Thank you</option>
+          </select>
+          <button type="button" class="link-reset" id="pgsTypeReset"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>Undo change</button>
+        </div>
+        <!-- extra choices shown only for Opt-in pages -->
+        <div class="pgs-optin" id="pgsOptinOpts" hidden>
+          <div class="pgs-optin-head">Opt-in Conversion Event</div>
+          <div class="pgs-optin-sub">Choose which Meta event fires on the next page after this opt-in form is submitted.</div>
+          <label class="pgs-evt">
+            <input type="radio" name="pgsOptin" value="Lead" checked>
+            <span class="pgs-radio-dot"></span>
+            <span class="pgs-evt-txt"><b>Lead</b><small>Fires the Lead event on the next page after the form is submitted. Default for opt-in pages.</small></span>
+          </label>
+          <label class="pgs-evt">
+            <input type="radio" name="pgsOptin" value="CompleteRegistration">
+            <span class="pgs-radio-dot"></span>
+            <span class="pgs-evt-txt"><b>CompleteRegistration</b><small>Fires CompleteRegistration after submission. Use for sign-ups and account / registration forms.</small></span>
+          </label>
+          <label class="pgs-evt">
+            <input type="radio" name="pgsOptin" value="SubmitApplication">
+            <span class="pgs-radio-dot"></span>
+            <span class="pgs-evt-txt"><b>SubmitApplication</b><small>Fires SubmitApplication after submission. Use for application or booking forms (e.g. Cal.com).</small></span>
+          </label>
+          <div class="pgs-note">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+            <span>This controls how Facebook Pixel and Conversions API track this opt-in. The event and submitted details are passed to the next page, where the event fires.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pgs-lock">
+        <label class="pgs-toggle">
+          <span class="pgs-toggle-txt"><b>Lock this page</b><small>Ask people for a password before they can open it.</small></span>
+          <span class="ps-switch"><input type="checkbox" id="pgsPwEnable"><span class="ps-slider"></span></span>
+        </label>
+        <div id="pgsPwWrap" class="pgs-pw-field" hidden>
+          <label class="pgs-pw-label">Password</label>
+          <div class="pw-row">
+            <input id="pgsPw" type="password" placeholder="Type a password" autocomplete="new-password">
+            <button type="button" class="pw-toggle" id="pgsPwShow">Show</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn-ghost" id="pgsCancel">Cancel</button>
+      <button class="btn-primary" id="pgsSave">Save</button>
+    </div>
+  </div>
+</div>
+
 <!-- ═══════════ PRODUCT SETUP STEPPER MODAL ═══════════ -->
 <div class="pm-backdrop" id="pmBackdrop">
   <div class="pm" role="dialog" aria-modal="true" aria-labelledby="pmTitle">
@@ -2913,13 +3036,84 @@
     const act = ov.dataset.ov;
     if(act === "feature"){ const pages = pagesFor(editingProjectId); pages.forEach(x=>x.featured=false);
       const p = pages.find(x=>x.id===activePageId); if(p){ p.featured=true; showToast("“"+p.name+"” set as feature image"); } renderPrjOverview(); return; }
-    if(act === "settings"){ document.getElementById("prjSettingsBtn").click(); return; }
+    if(act === "settings"){ openPageSettings(); return; }
     if(act === "delete"){ const arr = projectPages[editingProjectId]; const idx = arr.findIndex(x=>x.id===activePageId);
       if(idx>-1){ const nm = arr[idx].name; arr.splice(idx,1); activePageId = arr[0] ? arr[0].id : null; renderPrjPageList(); renderPrjOverview(); showToast("“"+nm+"” deleted"); } return; }
     if(act === "clone"){ const arr = projectPages[editingProjectId]; const src = arr.find(x=>x.id===activePageId);
       if(src){ const copy = {...src, id:"PG-"+(90000+Math.floor(Math.random()*9000)), name:src.name+" (copy)", status:"draft", featured:false, thumb:undefined}; arr.splice(arr.indexOf(src)+1,0,copy); activePageId=copy.id; renderPrjPageList(); renderPrjOverview(); showToast("Page cloned"); } return; }
     showToast(({edit:"Opening page editor…"})[act] || act);
   });
+
+  // ── Page Settings modal ──
+  const pgsBackdrop = document.getElementById("pageSettingsBackdrop");
+  let pgsOrigType = null;
+  function currentPage(){ const pages = pagesFor(editingProjectId); return pages.find(x => x.id === activePageId) || pages[0]; }
+  function syncOptinVisibility(){
+    const isOptin = document.getElementById("pgsType").value === "Opt-in Page";
+    document.getElementById("pgsOptinOpts").hidden = !isOptin;
+  }
+  function syncOptinCards(){
+    document.querySelectorAll("#pgsOptinOpts .pgs-evt").forEach(card => {
+      card.classList.toggle("on", card.querySelector("input").checked);
+    });
+  }
+  function openPageSettings(){
+    const p = currentPage(); if(!p) return;
+    const domain = p.url.split("/")[0];
+    const slug = p.url.slice(domain.length + 1);
+    document.getElementById("pgsName").value = p.name;
+    document.getElementById("pgsUrlPrefix").textContent = "https://" + domain + "/";
+    document.getElementById("pgsSlug").value = slug;
+    document.getElementById("pgsType").value = p.type;
+    pgsOrigType = p.type;
+    // opt-in conversion event (default: Lead)
+    const evt = p.optinEvent || "Lead";
+    const sel = document.querySelector(`input[name="pgsOptin"][value="${evt}"]`) || document.querySelector('input[name="pgsOptin"][value="Lead"]');
+    sel.checked = true;
+    syncOptinVisibility(); syncOptinCards();
+    // password
+    const pwOn = !!p.pwEnabled;
+    document.getElementById("pgsPwEnable").checked = pwOn;
+    document.getElementById("pgsPwWrap").hidden = !pwOn;
+    document.getElementById("pgsPw").value = p.password || "";
+    document.getElementById("pgsPw").type = "password";
+    document.getElementById("pgsPwShow").textContent = "Show";
+    document.getElementById("pgsSub").textContent = "Settings for “" + p.name + "”.";
+    pgsBackdrop.classList.add("open");
+  }
+  function closePageSettings(){ pgsBackdrop.classList.remove("open"); }
+  document.getElementById("pgsClose").addEventListener("click", closePageSettings);
+  document.getElementById("pgsCancel").addEventListener("click", closePageSettings);
+  pgsBackdrop.addEventListener("click", e => { if(e.target === pgsBackdrop) closePageSettings(); });
+  document.getElementById("pgsType").addEventListener("change", syncOptinVisibility);
+  document.getElementById("pgsOptinOpts").addEventListener("change", syncOptinCards);
+  document.getElementById("pgsTypeReset").addEventListener("click", () => {
+    document.getElementById("pgsType").value = pgsOrigType; syncOptinVisibility(); showToast("Change undone");
+  });
+  document.getElementById("pgsPwEnable").addEventListener("change", e => {
+    document.getElementById("pgsPwWrap").hidden = !e.target.checked;
+    if(e.target.checked) document.getElementById("pgsPw").focus();
+  });
+  document.getElementById("pgsPwShow").addEventListener("click", () => {
+    const inp = document.getElementById("pgsPw"); const show = inp.type === "password";
+    inp.type = show ? "text" : "password"; document.getElementById("pgsPwShow").textContent = show ? "Hide" : "Show";
+  });
+  document.getElementById("pgsSave").addEventListener("click", () => {
+    const p = currentPage(); if(!p) return;
+    const domain = p.url.split("/")[0];
+    const slug = document.getElementById("pgsSlug").value.trim().replace(/^\/+/, "");
+    p.name = document.getElementById("pgsName").value.trim() || p.name;
+    p.url = slug ? (domain + "/" + slug) : domain;
+    p.type = document.getElementById("pgsType").value;
+    if(p.type === "Opt-in Page"){
+      p.optinEvent = (document.querySelector('input[name="pgsOptin"]:checked')||{}).value || "Lead";
+    }
+    p.pwEnabled = document.getElementById("pgsPwEnable").checked;
+    p.password = p.pwEnabled ? document.getElementById("pgsPw").value : "";
+    renderPrjPageList(); renderPrjOverview();
+    closePageSettings(); showToast("Page settings saved");
+  });
+  document.addEventListener("keydown", e => { if(e.key === "Escape" && pgsBackdrop.classList.contains("open")) closePageSettings(); });
 
   // tabs
   document.querySelectorAll(".rep-tab").forEach(t => t.addEventListener("click", () => {
